@@ -2,32 +2,33 @@
 /// models/airtable_data_profile.dart
 ///
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:the_gregs_cv/utils/config.dart';
 
-class AirtableDataProfile {
+class Profile {
   String id;
   String createdTime;
   String content;
   String icon;
 
-  AirtableDataProfile(
+  Profile(
       {required this.id,
       required this.createdTime,
       required this.content,
       required this.icon});
 }
 
-class AirtableData {
-  final Uri urlProfil = Uri.https(
+class AirtableDataProfile {
+  final Uri urlProfile = Uri.https(
     "api.airtable.com",
     "/v0/${Config.airtableProjectBase}/profile",
     {"maxRecords": "10", "view": "Grid view"},
   );
 
-  Future<List<AirtableDataProfile>> getProfil() async {
+  Future<List<Profile>> getProfile() async {
     final res = await http.get(
-      urlProfil,
+      urlProfile,
       headers: {"Authorization": "Bearer ${Config.airtableApiKey}"},
     );
 
@@ -35,11 +36,11 @@ class AirtableData {
       var convertDataToJson = jsonDecode(res.body);
       var data = convertDataToJson['records'];
 
-      List<AirtableDataProfile> values = [];
+      List<Profile> values = [];
       data.forEach(
         (value) => {
           values.add(
-            AirtableDataProfile(
+            Profile(
               id: value['id'],
               createdTime: value['createdTime'],
               content: value['fields']['content'],

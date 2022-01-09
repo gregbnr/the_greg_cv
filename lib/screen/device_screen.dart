@@ -3,7 +3,7 @@
 ///
 import 'package:flutter/material.dart';
 import 'package:the_gregs_cv/screen/education_screen.dart';
-import 'package:the_gregs_cv/screen/experience_screen.dart';
+import 'package:the_gregs_cv/screen/experience/experience_screen.dart';
 import 'package:the_gregs_cv/screen/information_screen.dart';
 import 'package:the_gregs_cv/screen/profile_screen.dart';
 import 'package:the_gregs_cv/screen/skill_screen.dart';

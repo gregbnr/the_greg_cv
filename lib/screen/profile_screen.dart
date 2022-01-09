@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AirtableData airtableData = AirtableData();
+    final AirtableDataProfile airtableData = AirtableDataProfile();
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     const CircleAvatar(
-                      backgroundImage: AssetImage("assets/fieldpro.jpeg"),
+                      backgroundImage: AssetImage("assets/my_profile.png"),
                       maxRadius: 80,
                     ),
                     Row(
@@ -51,19 +51,20 @@ class ProfileScreen extends StatelessWidget {
                     SizedBox(
                       height: 200,
                       child: FutureBuilder(
-                        future: airtableData.getProfil(),
+                        future: airtableData.getProfile(),
                         builder: (BuildContext context,
-                            AsyncSnapshot<List<AirtableDataProfile>> snapshot) {
+                            AsyncSnapshot<List<Profile>> snapshot) {
                           if (snapshot.hasData) {
-                            List<AirtableDataProfile>? values = snapshot.data;
+                            List<Profile>? values = snapshot.data;
                             return ListView(
                               children: values!
                                   .map(
-                                    (AirtableDataProfile value) => ListTile(
+                                    (Profile value) => ListTile(
                                       leading: Text(
                                         value.icon,
                                         style: const TextStyle(
-                                            fontFamily: 'MaterialIcons'),
+                                            fontFamily: 'MaterialIcons',
+                                            fontSize: 20),
                                       ),
                                       title: Text(value.content),
                                     ),

@@ -3,7 +3,7 @@
 ///
 import 'package:flutter/material.dart';
 import 'package:the_gregs_cv/models/airtable_data_experience.dart';
-import 'package:the_gregs_cv/screen/experience/experience_detail.dart';
+import 'package:the_gregs_cv/screen/experience/experience_detail_screen.dart';
 
 class ExperienceScreen extends StatelessWidget {
   const ExperienceScreen({Key? key}) : super(key: key);

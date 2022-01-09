@@ -37,10 +37,18 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const CircleAvatar(
-                      backgroundImage: AssetImage("assets/my_profile.png"),
-                      maxRadius: 80,
-                    ),
+                    GestureDetector(
+                        child: const Hero(
+                          tag: 'imageHero',
+                          child: CircleAvatar(
+                            backgroundImage:
+                                AssetImage("assets/my_profile.png"),
+                            maxRadius: 80,
+                          ),
+                        ),
+                        onTap: () {
+                          _showProfileImage(context);
+                        }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -102,6 +110,31 @@ Widget iconLink(var icon, String _url) {
         icon,
         color: Colors.black,
         size: 32,
+      ),
+    ),
+  );
+}
+
+void _showProfileImage(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => Scaffold(
+        body: Container(
+          color: Colors.amber,
+          child: Center(
+            child: GestureDetector(
+                child: const Hero(
+                  tag: 'imageHero',
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/my_profile.png"),
+                    maxRadius: 180,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                }),
+          ),
+        ),
       ),
     ),
   );

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:the_gregs_cv/models/airtable_data_profile.dart';
+import 'package:the_gregs_cv/widget/widget_progressbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -80,8 +81,7 @@ class ProfileScreen extends StatelessWidget {
                                   .toList(),
                             );
                           } else {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            return circleProgressBar();
                           }
                         },
                       ),
@@ -120,7 +120,7 @@ void _showProfileImage(BuildContext context) {
     MaterialPageRoute(
       builder: (context) => Scaffold(
         body: Container(
-          color: Colors.amber,
+          color: Colors.indigo,
           child: Center(
             child: GestureDetector(
                 child: const Hero(

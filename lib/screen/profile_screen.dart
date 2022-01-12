@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:the_gregs_cv/models/airtable_data_profile.dart';
+import 'package:the_gregs_cv/widget/widget_progressbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -37,10 +38,18 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const CircleAvatar(
-                      backgroundImage: AssetImage("assets/my_profile.png"),
-                      maxRadius: 80,
-                    ),
+                    GestureDetector(
+                        child: const Hero(
+                          tag: 'imageHero',
+                          child: CircleAvatar(
+                            backgroundImage:
+                                AssetImage("assets/my_profile.png"),
+                            maxRadius: 80,
+                          ),
+                        ),
+                        onTap: () {
+                          _showProfileImage(context);
+                        }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -72,8 +81,7 @@ class ProfileScreen extends StatelessWidget {
                                   .toList(),
                             );
                           } else {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            return circleProgressBar();
                           }
                         },
                       ),
@@ -102,6 +110,31 @@ Widget iconLink(var icon, String _url) {
         icon,
         color: Colors.black,
         size: 32,
+      ),
+    ),
+  );
+}
+
+void _showProfileImage(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => Scaffold(
+        body: Container(
+          color: Colors.indigo,
+          child: Center(
+            child: GestureDetector(
+                child: const Hero(
+                  tag: 'imageHero',
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/my_profile.png"),
+                    maxRadius: 180,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                }),
+          ),
+        ),
       ),
     ),
   );

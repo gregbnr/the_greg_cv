@@ -8,37 +8,33 @@ import 'package:the_gregs_cv/utils/config.dart';
 /// models/airtable_data_experience.dart
 ///
 
-class Experience {
+class Education {
   String id;
   String createdTime;
-  String title;
-  String function;
-  String status;
+  String schoolName;
+  String degree;
   String date;
   String note;
-  String? skills;
   String attachmentUrl;
 
-  Experience(
+  Education(
       {required this.id,
       required this.createdTime,
-      required this.title,
-      required this.function,
-      required this.status,
+      required this.schoolName,
+      required this.degree,
       required this.date,
       required this.note,
-      required this.skills,
       required this.attachmentUrl});
 }
 
-class AirtableDataExperience {
+class AirtableDataEducation {
   final Uri urlExperience = Uri.https(
     "api.airtable.com",
-    "/v0/${Config.airtableProjectBase}/experience",
+    "/v0/${Config.airtableProjectBase}/education",
     {"maxRecords": "10", "view": "Grid view"},
   );
 
-  Future<List<Experience>> getExperiences() async {
+  Future<List<Education>> getEducations() async {
     final res = await http.get(
       urlExperience,
       headers: {"Authorization": "Bearer ${Config.airtableApiKey}"},
@@ -51,19 +47,17 @@ class AirtableDataExperience {
       var convertDataToJson = jsonDecode(res.body);
       var data = convertDataToJson['records'];
 
-      List<Experience> values = [];
+      List<Education> values = [];
       data.forEach(
         (value) => {
           values.add(
-            Experience(
+            Education(
               id: value['id'],
               createdTime: value['createdTime'],
-              title: value['fields']['title'],
-              function: value['fields']['function'],
-              status: value['fields']['status'],
+              schoolName: value['fields']['school_name'],
+              degree: value['fields']['degree'],
               date: value['fields']['date'],
               note: value['fields']['note'],
-              skills: value['fields']['skills'],
               attachmentUrl: value['fields']['attachment_url'],
             ),
           )

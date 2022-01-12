@@ -3,6 +3,7 @@
 ///
 import 'package:flutter/material.dart';
 import 'package:the_gregs_cv/models/airtable_data_experience.dart';
+import 'package:the_gregs_cv/widget/widget_text.dart';
 
 class ExperienceDetailScreen extends StatelessWidget {
   final Experience experience;
@@ -48,7 +49,32 @@ class ExperienceDetailScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(24),
               child: Container(
-                  alignment: Alignment.topLeft, child: Text(experience.note)),
+                alignment: Alignment.topLeft,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    dateTextWidget(experience.date),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+                      child: Text(experience.status,
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    Visibility(
+                      visible: experience.skills != null,
+                      child: Text(
+                          experience.skills != null ? experience.skills! : ""),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
+                      child: Divider(
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(experience.note),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

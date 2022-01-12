@@ -3,7 +3,10 @@
 ///
 import 'package:flutter/material.dart';
 import 'package:the_gregs_cv/models/airtable_data_experience.dart';
-import 'package:the_gregs_cv/screen/experience/experience_detail.dart';
+import 'package:the_gregs_cv/screen/experience/experience_detail_screen.dart';
+import 'package:the_gregs_cv/widget/widget_image.dart';
+import 'package:the_gregs_cv/widget/widget_progressbar.dart';
+import 'package:the_gregs_cv/widget/widget_text.dart';
 
 class ExperienceScreen extends StatelessWidget {
   const ExperienceScreen({Key? key}) : super(key: key);
@@ -29,16 +32,11 @@ class ExperienceScreen extends StatelessWidget {
                   return Column(
                     children: [
                       ListTile(
-                        leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
-                            xp.attachmentUrl,
-                          ),
-                        ),
-                        title: Text(xp.title),
+                        leading: startImageRoundedWidget(xp.attachmentUrl),
+                        title: titleTextWidget(xp.title),
                         contentPadding:
                             const EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 10.0),
-                        subtitle: Text("${xp.date}\n${xp.function}"),
+                        subtitle: subtitleTextWidget(xp.function),
                         trailing: const Icon(
                           Icons.arrow_forward_ios,
                           size: 15,
@@ -54,7 +52,7 @@ class ExperienceScreen extends StatelessWidget {
                   );
                 });
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return topProgressBar();
           }
         },
       ),

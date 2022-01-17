@@ -31,23 +31,37 @@ class ExperienceScreen extends StatelessWidget {
                   Experience xp = experiences[index];
                   return Column(
                     children: [
-                      ListTile(
-                        leading: startImageRoundedWidget(xp.attachmentUrl),
-                        title: titleTextWidget(xp.title),
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 10.0),
-                        subtitle: subtitleTextWidget(xp.function),
-                        trailing: const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15,
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              width: 0.5,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ),
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ExperienceDetailScreen(experience: xp),
-                        )),
+                        child: Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: Colors.transparent),
+                          child: ListTile(
+                            leading:
+                                imageWithCornerRoundedWidget(xp.attachmentUrl),
+                            title: titleTextWidget(xp.title),
+                            contentPadding: const EdgeInsets.fromLTRB(
+                                24.0, 10.0, 24.0, 10.0),
+                            subtitle: subtitleTextWidget(xp.function),
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                            onTap: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  ExperienceDetailScreen(experience: xp),
+                            )),
+                          ),
+                        ),
                       ),
-                      const Divider()
                     ],
                   );
                 });

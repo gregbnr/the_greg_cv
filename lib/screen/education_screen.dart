@@ -46,7 +46,7 @@ class EducationScreenState extends State<EducationScreen> {
                 ),
               ],
             ), // body
-            startImageRoundedWidget(_education.attachmentUrl));
+            imageWithCornerRoundedWidget(_education.attachmentUrl));
         items.add(_item);
       }
     }

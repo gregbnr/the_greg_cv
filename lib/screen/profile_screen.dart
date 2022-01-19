@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:the_gregs_cv/models/airtable_data_profile.dart';
+import 'package:the_gregs_cv/utils/palette.dart';
 import 'package:the_gregs_cv/widget/widget_progressbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,84 +17,67 @@ class ProfileScreen extends StatelessWidget {
     final AirtableDataProfile airtableData = AirtableDataProfile();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profil"),
-      ),
-      //
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        "Grégoire Bonnier",
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
+      // SliverAppBar is declared in Scaffold.body, in slivers of a
+      // CustomScrollView.
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 300,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding:
+                  const EdgeInsetsDirectional.only(start: 12, bottom: 15),
+              title: const Text("Grégoire Bonnier"),
+              background: Container(
+                padding: const EdgeInsets.all(10),
+                color: Palette.blueNavy,
+                alignment: Alignment.center,
+                child: GestureDetector(
+                    child: const Hero(
+                      tag: 'imageHero',
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/greg.png"),
+                        maxRadius: 80,
                       ),
                     ),
-                    GestureDetector(
-                        child: const Hero(
-                          tag: 'imageHero',
-                          child: CircleAvatar(
-                            backgroundImage:
-                                AssetImage("assets/my_profile.png"),
-                            maxRadius: 80,
-                          ),
-                        ),
-                        onTap: () {
-                          _showProfileImage(context);
-                        }),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        iconLink(FontAwesomeIcons.linkedin,
-                            'https://www.linkedin.com/in/gregoire-bonnier/')
-                      ],
-                    ),
-                    SizedBox(
-                      height: 200,
-                      child: FutureBuilder(
-                        future: airtableData.getProfile(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<Profile>> snapshot) {
-                          if (snapshot.hasData) {
-                            List<Profile>? values = snapshot.data;
-                            return ListView(
-                              children: values!
-                                  .map(
-                                    (Profile value) => ListTile(
-                                      leading: Text(
-                                        value.icon,
-                                        style: const TextStyle(
-                                            fontFamily: 'MaterialIcons',
-                                            fontSize: 20),
-                                      ),
-                                      title: Text(value.content),
-                                    ),
-                                  )
-                                  .toList(),
-                            );
-                          } else {
-                            return circleProgressBar();
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                    onTap: () {
+                      _showProfileImage(context);
+                    }),
               ),
             ),
-
-            /// IMAGE CIRCLE
-          ],
-        ),
+          ),
+          // If the main content is a list, use SliverList instead.
+          SliverFillRemaining(
+            hasScrollBody: true,
+            fillOverscroll: true,
+            child: FutureBuilder(
+              future: airtableData.getProfile(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Profile>> snapshot) {
+                if (snapshot.hasData) {
+                  List<Profile>? values = snapshot.data;
+                  return ListView(
+                    physics: const ScrollPhysics(),
+                    children: values!
+                        .map(
+                          (Profile value) => ListTile(
+                            leading: Text(
+                              value.icon,
+                              style: const TextStyle(
+                                  fontFamily: 'MaterialIcons', fontSize: 20),
+                            ),
+                            title: Text(value.content),
+                          ),
+                        )
+                        .toList(),
+                  );
+                } else {
+                  return circleProgressBar();
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -120,7 +104,7 @@ void _showProfileImage(BuildContext context) {
     MaterialPageRoute(
       builder: (context) => Scaffold(
         body: Container(
-          color: Colors.indigo,
+          color: Palette.blueNavy,
           child: Center(
             child: GestureDetector(
                 child: const Hero(

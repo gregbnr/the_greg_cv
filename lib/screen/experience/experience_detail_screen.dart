@@ -3,6 +3,7 @@
 ///
 import 'package:flutter/material.dart';
 import 'package:the_gregs_cv/models/airtable_data_experience.dart';
+import 'package:the_gregs_cv/utils/palette.dart';
 import 'package:the_gregs_cv/widget/widget_text.dart';
 
 class ExperienceDetailScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class ExperienceDetailScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(10),
-              color: Colors.amber,
+              color: Palette.yellowRicard,
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

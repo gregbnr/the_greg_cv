@@ -3,11 +3,9 @@
 ///
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:the_gregs_cv/models/airtable_data_profile.dart';
 import 'package:the_gregs_cv/utils/palette.dart';
 import 'package:the_gregs_cv/widget/widget_progressbar.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -22,24 +20,19 @@ class ProfileScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            elevation: 10,
             pinned: true,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
               titlePadding:
                   const EdgeInsetsDirectional.only(start: 12, bottom: 15),
-              title: const Text("Grégoire Bonnier"),
+              title: const Text("Grégoire Bonnier "),
               background: Container(
                 padding: const EdgeInsets.all(10),
                 color: Palette.blueNavy,
                 alignment: Alignment.center,
                 child: GestureDetector(
-                    child: const Hero(
-                      tag: 'imageHero',
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage("assets/greg.png"),
-                        maxRadius: 80,
-                      ),
-                    ),
+                    child: Hero(tag: 'imageHero', child: _loadToonImage()),
                     onTap: () {
                       _showProfileImage(context);
                     }),
@@ -56,20 +49,23 @@ class ProfileScreen extends StatelessWidget {
                   AsyncSnapshot<List<Profile>> snapshot) {
                 if (snapshot.hasData) {
                   List<Profile>? values = snapshot.data;
-                  return ListView(
-                    physics: const ScrollPhysics(),
-                    children: values!
-                        .map(
-                          (Profile value) => ListTile(
-                            leading: Text(
-                              value.icon,
-                              style: const TextStyle(
-                                  fontFamily: 'MaterialIcons', fontSize: 20),
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: values!
+                          .map(
+                            (Profile value) => ListTile(
+                              leading: Text(
+                                value.icon,
+                                style: const TextStyle(
+                                    fontFamily: 'MaterialIcons', fontSize: 20),
+                              ),
+                              title: Center(child: Text(value.content)),
                             ),
-                            title: Text(value.content),
-                          ),
-                        )
-                        .toList(),
+                          )
+                          .toList(),
+                    ),
                   );
                 } else {
                   return circleProgressBar();
@@ -83,43 +79,39 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-Widget iconLink(var icon, String _url) {
-  return GestureDetector(
-    onTap: () {
-      launch(_url, forceSafariVC: false);
-    },
-    child: Container(
-      padding: const EdgeInsets.all(8),
-      child: FaIcon(
-        icon,
-        color: Colors.black,
-        size: 32,
-      ),
-    ),
-  );
-}
 
 void _showProfileImage(BuildContext context) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => Scaffold(
-        body: Container(
-          color: Palette.blueNavy,
-          child: Center(
-            child: GestureDetector(
-                child: const Hero(
+        body: GestureDetector(
+            child: Container(
+              color: Palette.blueNavy,
+              child: const Center(
+                child: Hero(
                   tag: 'imageHero',
                   child: CircleAvatar(
                     backgroundImage: AssetImage("assets/my_profile.png"),
                     maxRadius: 180,
                   ),
                 ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                }),
-          ),
-        ),
+              ),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+            }),
       ),
+    ),
+  );
+}
+
+CircleAvatar _loadToonImage() {
+  return const CircleAvatar(
+    maxRadius: 85.0,
+    backgroundColor: Colors.white,
+    child: CircleAvatar(
+      backgroundImage: AssetImage("assets/greg.png"),
+      maxRadius: 80,
     ),
   );
 }

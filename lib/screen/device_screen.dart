@@ -48,7 +48,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
       //
       body: _screenList[_currentScreen],
       bottomNavigationBar: ConvexAppBar(
-        activeColor: Colors.amber,
+        activeColor: Palette.yellowRicard,
         backgroundColor: Palette.blueNavy,
         style: TabStyle.textIn,
         items: <TabItem>[
@@ -71,10 +71,10 @@ class _DeviceScreenState extends State<DeviceScreen> {
 }
 
 Icon getIconWithColor(IconData iconLabel, bool isActiveIcon) {
-  Color _color = Colors.white;
+  Color _color = Colors.white70;
 
   if (isActiveIcon) {
-    _color = Colors.amber;
+    _color = Palette.yellowRicard;
     return Icon(iconLabel, color: _color, size: 25);
   } else {
     return Icon(iconLabel, color: _color, size: 25);

@@ -2,6 +2,7 @@
 /// screen/information_screen.dart
 ///
 import 'package:flutter/material.dart';
+import 'package:the_gregs_cv/utils/palette.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InformationScreen extends StatelessWidget {
@@ -27,14 +28,14 @@ class InformationScreen extends StatelessWidget {
               ),
             ),
             Card(
-              color: Colors.indigo,
+              color: Palette.blueNavy,
               margin: const EdgeInsets.all(12),
-              elevation: 0.0,
+              elevation: 5,
               child: SizedBox(
                 width: 150,
                 height: 50.0,
                 child: InkWell(
-                  splashColor: Colors.amber,
+                  splashColor: Palette.yellowRicard,
                   onTap: () async {
                     _launchURL();
                   },
@@ -50,13 +51,6 @@ class InformationScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Text(
-              "Rigoureux, curieux et motivé,\n"
-              "je suis passionné par le développement mobile et je souhaite y évoluer. "
-              "Je finalise actuellement mon Master dans ce domaine pour enfin créer mon application. (une, utile à la société)",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontStyle: FontStyle.italic),
-            )
           ],
         ),
       ),

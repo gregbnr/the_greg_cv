@@ -1,12 +1,14 @@
 ///
 /// screen/device.dart
 ///
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:the_gregs_cv/screen/education_screen.dart';
 import 'package:the_gregs_cv/screen/experience/experience_screen.dart';
 import 'package:the_gregs_cv/screen/information_screen.dart';
 import 'package:the_gregs_cv/screen/profile_screen.dart';
 import 'package:the_gregs_cv/screen/skill_screen.dart';
+import 'package:the_gregs_cv/utils/palette.dart';
 
 /// La classe de l'écran, qui va instancier un état
 // ignore: must_be_immutable
@@ -31,50 +33,32 @@ class _DeviceScreenState extends State<DeviceScreen> {
     const InformationScreen(),
   ];
 
+  final _kPages = <String, Icon>{
+    'Profil': getIconWithColor(Icons.person_outlined, false),
+    'Exp': getIconWithColor(Icons.work_outlined, false),
+    'Formation': getIconWithColor(Icons.school_outlined, false),
+    'Skill': getIconWithColor(Icons.task_alt_outlined, false),
+    'Info+': getIconWithColor(Icons.info_outlined, false),
+  };
+
   /// construction de l'écran principal
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //
       body: _screenList[_currentScreen],
-      //
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
-        //
-        onTap: onTabTapped,
-        //
-        currentIndex: _currentScreen,
-        selectedItemColor: Colors.indigo,
-        unselectedItemColor: Colors.grey,
-        selectedFontSize: 0,
-        //
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outlined),
-            activeIcon: Icon(Icons.person_outlined, size: 35),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.work_outlined),
-            activeIcon: Icon(Icons.work_outlined, size: 35),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school_outlined),
-            activeIcon: Icon(Icons.school_outlined, size: 35),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.task_alt_outlined),
-            activeIcon: Icon(Icons.task_alt_outlined, size: 35),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info_outlined),
-            activeIcon: Icon(Icons.info_outlined, size: 35),
-            label: '',
-          )
+      bottomNavigationBar: ConvexAppBar(
+        activeColor: Palette.yellowRicard,
+        backgroundColor: Palette.blueNavy,
+        style: TabStyle.textIn,
+        items: <TabItem>[
+          for (final screen in _kPages.entries)
+            TabItem(
+                icon: screen.value,
+                title: screen.key,
+                activeIcon: getIconWithColor(screen.value.icon!, true)),
         ],
+        onTap: onTabTapped,
       ),
     );
   }
@@ -83,5 +67,16 @@ class _DeviceScreenState extends State<DeviceScreen> {
     setState(() {
       _currentScreen = index;
     });
+  }
+}
+
+Icon getIconWithColor(IconData iconLabel, bool isActiveIcon) {
+  Color _color = Colors.white70;
+
+  if (isActiveIcon) {
+    _color = Palette.yellowRicard;
+    return Icon(iconLabel, color: _color, size: 25);
+  } else {
+    return Icon(iconLabel, color: _color, size: 25);
   }
 }

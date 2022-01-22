@@ -1,9 +1,9 @@
 ///
 /// main.dart
 ///
-
 import 'package:flutter/material.dart';
-import 'package:the_gregs_cv/screen/device_screen.dart';
+import 'package:the_gregs_cv/screen/splash_screen.dart';
+import 'package:the_gregs_cv/utils/palette.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,9 +29,10 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         fontFamily: 'Poppins',
-        primarySwatch: Colors.indigo,
+        primarySwatch: Palette.blueNavy,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const DeviceScreen(),
+      home: const SplashScreen(),
     );
   }
 }

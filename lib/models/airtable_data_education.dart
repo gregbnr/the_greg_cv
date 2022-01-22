@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer' as developer;
 
 import 'package:http/http.dart' as http;
 import 'package:the_gregs_cv/utils/config.dart';
@@ -39,9 +38,6 @@ class AirtableDataEducation {
       urlExperience,
       headers: {"Authorization": "Bearer ${Config.airtableApiKey}"},
     );
-
-    developer.log("STATUS CODE");
-    developer.log(res.statusCode.toString());
 
     if (res.statusCode == 200) {
       var convertDataToJson = jsonDecode(res.body);

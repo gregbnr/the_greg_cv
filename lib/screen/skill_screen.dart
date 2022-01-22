@@ -61,11 +61,28 @@ class SkillScreenState extends State<SkillScreen> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
+      children: [
         titleTextWidget(title),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
-          child: getTextWidgets(skills),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: GridView.count(
+                  shrinkWrap: true,
+                  primary: false,
+                  crossAxisCount: 4,
+                  children: List.generate(skills.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+                      child: getTextWidgets(skills[index]),
+                    );
+                  }),
+                ),
+              ),
+            ],
+          ),
         ),
         const Padding(
           padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
@@ -75,28 +92,24 @@ class SkillScreenState extends State<SkillScreen> {
     );
   }
 
-  Widget getTextWidgets(List<Skill> skills) {
-    List<Widget> list = <Widget>[];
-    for (var skill in skills) {
-      list.add(
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-          child: Column(
-            children: [
-              imageWithCornerRounded(skill.attachmentUrl),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Text(
-                  skill.title,
-                  style: const TextStyle(fontSize: 10),
-                ),
+  Widget getTextWidgets(Skill skill) {
+    return Row(children: [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+        child: Column(
+          children: [
+            imageWithCornerRounded(skill.attachmentUrl),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+              child: Text(
+                skill.title,
+                style: const TextStyle(fontSize: 12),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-    }
-    return Row(children: list);
+      ),
+    ]);
   }
 
   Widget imageWithCornerRounded(String url) {
@@ -104,8 +117,8 @@ class SkillScreenState extends State<SkillScreen> {
         borderRadius: BorderRadius.circular(8.0),
         child: Image.network(
           url,
-          width: 30,
-          height: 30,
+          width: 40,
+          height: 40,
         ));
   }
 }

@@ -88,7 +88,7 @@ class SkillScreenState extends State<SkillScreen> {
                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: Text(
                   skill.title,
-                  style: const TextStyle(fontSize: 12),
+                  style: const TextStyle(fontSize: 10),
                 ),
               ),
             ],
@@ -104,8 +104,8 @@ class SkillScreenState extends State<SkillScreen> {
         borderRadius: BorderRadius.circular(8.0),
         child: Image.network(
           url,
-          width: 40,
-          height: 40,
+          width: 30,
+          height: 30,
         ));
   }
 }

@@ -36,9 +36,9 @@ class SkillScreenState extends State<SkillScreen> {
               var data = skills
                   .where((element) => element.category == "Data")
                   .toList();
-              return Padding(
-                padding: const EdgeInsets.all(24),
-                child: SingleChildScrollView(
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
